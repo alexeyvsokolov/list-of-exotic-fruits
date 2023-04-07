@@ -75,17 +75,11 @@ const getRandomInt = (min, max) => {
 // перемешивание массива
 const shuffleFruits = () => {
   let result = [];
-
-  // ATTENTION: сейчас при клике вы запустите бесконечный цикл и браузер зависнет
   while (fruits.length > 0) {
-    // TODO: допишите функцию перемешивания массива
-    //
-    // Подсказка: находим случайный элемент из fruits, используя getRandomInt
-    // вырезаем его из fruits и вставляем в result.
-    // ex.: [1, 2, 3], [] => [1, 3], [2] => [3], [2, 1] => [], [2, 1, 3]
-    // (массив fruits будет уменьшатся, а result заполняться)
+    let randomFruits = getRandomInt(0, fruits.length - 1);   // случайный элемент из fruits
+    result.push(fruits[randomFruits]);                       // вставляем случайный элемент из fruits в result
+    fruits.splice(randomFruits, 1);                          // вырезаем случайный элемент из fruits
   }
-
   fruits = result;
 };
 
