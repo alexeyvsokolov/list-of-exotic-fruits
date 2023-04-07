@@ -27,12 +27,38 @@ let fruits = JSON.parse(fruitsJSON);
 
 // отрисовка карточек
 const display = () => {
-  // TODO: очищаем fruitsList от вложенных элементов,
-  // чтобы заполнить актуальными данными из fruits
+  fruitsList.innerHTML = '';
 
   for (let i = 0; i < fruits.length; i++) {
-    // TODO: формируем новый элемент <li> при помощи document.createElement,
-    // и добавляем в конец списка fruitsList при помощи document.appendChild
+    const li = document.createElement('li');
+    li.classList.add('fruit__item');
+    if (fruits[i].color == 'фиолетовый') {
+      li.classList.add('fruit_violet');
+    }
+    if (fruits[i].color == 'зеленый') {
+      li.classList.add('fruit_green');
+    }
+    if (fruits[i].color == 'розово-красный') {
+      li.classList.add('fruit_carmazin');
+    }
+    if (fruits[i].color == 'желтый') {
+      li.classList.add('fruit_yellow');
+    }
+    if (fruits[i].color == 'светло-коричневый') {
+      li.classList.add('fruit_lightbrown');
+    }
+    fruitsList.appendChild(li);
+
+    const div = document.createElement('div');
+    div.classList.add('fruit__info');
+    li.appendChild(div);
+
+    div.innerHTML = `
+    <div>index: ${i + 1}</div>
+    <div>kind: ${fruits[i].kind}</div>
+    <div>color: ${fruits[i].color}</div>
+    <div>weight (кг): ${fruits[i].weight}</div>
+    `;
   }
 };
 
