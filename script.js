@@ -10,6 +10,8 @@ const kindInput = document.querySelector('.kind__input'); // поле с наз�
 const colorInput = document.querySelector('.color__input'); // поле с названием цвета
 const weightInput = document.querySelector('.weight__input'); // поле с весом
 const addActionButton = document.querySelector('.add__action__btn'); // кнопка добавления
+const minWeightInput = document.querySelector('.minweight__input'); // поле с нижней границей weight
+const maxWeightInput = document.querySelector('.maxweight__input'); // поле с верхней границей weight
 
 // список фруктов в JSON формате
 let fruitsJSON = `[
@@ -92,13 +94,13 @@ shuffleButton.addEventListener('click', () => {
 
 // фильтрация массива
 const filterFruits = () => {
-  fruits.filter((item) => {
-    // TODO: допишите функцию
+  return fruits.filter((item) => {
+    return (item.weight >= parseInt(minWeightInput.value)) && (item.weight <= parseInt(maxWeightInput.value));
   });
 };
 
 filterButton.addEventListener('click', () => {
-  filterFruits();
+  fruits = filterFruits();
   display();
 });
 
