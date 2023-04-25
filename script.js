@@ -117,10 +117,10 @@ const comparationColor = (a, b) => {
 };
 
 const sortAPI = {
-  bubbleSort(arr, comparationColor) {
+  bubbleSort(arr, comparation) {
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length - 1 - i; j++) {
-        if (comparationColor(arr[j], arr[j + 1])) {
+        if (comparation(arr[j], arr[j + 1])) {
           const tmp = arr[j];
           arr[j] = arr[j + 1];
           arr[j + 1] = tmp;
@@ -130,7 +130,24 @@ const sortAPI = {
   },
 
   quickSort(arr, comparation) {
-    // TODO: допишите функцию быстрой сортировки
+    if (arr.length <= 1) {
+      return arr;
+    }
+    let index = Math.floor(arr.length / 2);
+    let currentItem = arr[index];
+    let less = [];
+    let more = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      if (i === index) {
+        continue;
+      }
+      if (comparation(arr[i], currentItem)) {
+        more.push(arr[i]);
+      } else {
+        less.push(arr[i])
+      }
+    }
+    return [...this.quickSort(less, comparation), currentItem, ...this.quickSort(more, comparation)];
   },
 
   // выполняет сортировку и производит замер времени
@@ -139,17 +156,16 @@ const sortAPI = {
     sort(arr, comparation);
     const end = new Date().getTime();
     sortTime = `${end - start} ms`;
-  },
+  }
 };
 
 // инициализация полей
 sortKindLabel.textContent = sortKind;
 sortTimeLabel.textContent = sortTime;
 
+// переключать значение sortKind между 'bubbleSort' / 'quickSort'
 sortChangeButton.addEventListener('click', () => {
-  // TODO: переключать значение sortKind между 'bubbleSort' / 'quickSort'
-  sortKind == 'bubbleSort' ? sortKind = 'quickSort' : sortKind = 'bubbleSort';
-  sortKindLabel.textContent = sortKind;
+  sortKindLabel.textContent === 'bubbleSort' ? sortKindLabel.textContent = 'quickSort' : sortKindLabel.textContent = 'bubbleSort';
 });
 
 sortActionButton.addEventListener('click', () => {
