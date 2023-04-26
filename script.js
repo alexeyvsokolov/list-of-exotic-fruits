@@ -92,12 +92,18 @@ const getRandomInt = (min, max) => {
 // перемешивание массива
 const shuffleFruits = () => {
   let result = [];
+  let newFruits = [...fruits];
   while (fruits.length > 0) {
     let randomFruits = getRandomInt(0, fruits.length - 1);   // случайный элемент из fruits
     result.push(fruits[randomFruits]);                       // вставляем случайный элемент из fruits в result
     fruits.splice(randomFruits, 1);                          // вырезаем случайный элемент из fruits
   }
   fruits = result;
+  // проверка на совпадение при перемешивании
+  let notShuffled = fruits.every((el, index) => el === newFruits[index]);
+  if (notShuffled) {
+    alert("Не перемешано! Перемешайте ещё раз.");
+  }
 };
 
 shuffleButton.addEventListener('click', () => {
