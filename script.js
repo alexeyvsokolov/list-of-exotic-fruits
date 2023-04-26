@@ -49,6 +49,21 @@ const display = () => {
     if (fruits[i].color == 'светло-коричневый') {
       li.classList.add('fruit_lightbrown');
     }
+    if (fruits[i].color == 'красный') {
+      li.classList.add('fruit_red');
+    }
+    if (fruits[i].color == 'оранжевый') {
+      li.classList.add('fruit_orange');
+    }
+    if (fruits[i].color == 'малиновый') {
+      li.classList.add('fruit_crimson');
+    }
+    if (fruits[i].color == 'желто-оранжевый') {
+      li.classList.add('fruit_yellow-orange');
+    }
+    if (fruits[i].color == 'желто-зеленый') {
+      li.classList.add('fruit_yellow-green');
+    }
     fruitsList.appendChild(li);
 
     const div = document.createElement('div');
@@ -179,7 +194,24 @@ sortActionButton.addEventListener('click', () => {
 /*** ДОБАВИТЬ ФРУКТ ***/
 
 addActionButton.addEventListener('click', () => {
-  // TODO: создание и добавление нового фрукта в массив fruits
-  // необходимые значения берем из kindInput, colorInput, weightInput
-  display();
+  // создание и добавление нового фрукта в массив fruits
+  if (kindInput.value === "" || colorInput.value === "" || weightInput.value === "") {
+    alert('Одно или несколько полей не заполнены!')
+  } else {
+    if (isNaN(weightInput.value)) {
+      alert('Вес должен быть указан числом!')
+      weightInput.value = "";
+    } else {
+      fruits.push({
+        kind: kindInput.value,
+        color: colorInput.value,
+        weight: weightInput.value
+      })
+      display();
+      // Очистка полей после добавления фрукта
+      kindInput.value = "";
+      colorInput.value = "";
+      weightInput.value = "";
+    }
+  }
 });
