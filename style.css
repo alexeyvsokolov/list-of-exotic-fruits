@@ -44,7 +44,18 @@ input {
   background: none;
   background-color: #3cbc8d;
   color: white;
-  max-width: 200px;
+  width: 200px;
+}
+
+select {
+  margin: 5px 10px 5px 0;
+  border: 0;
+  padding: 0 10px;
+  height: 36px;
+  background: none;
+  background-color: #3cbc8d;
+  color: white;
+  width: 200px;
 }
 
 main {
