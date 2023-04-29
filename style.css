@@ -19,6 +19,7 @@ li {
 }
 
 button {
+  cursor: pointer;
   margin-top: 10px;
   background-color: #008cba;
   border: none;
@@ -31,6 +32,10 @@ button {
   text-decoration: none;
   display: inline-block;
   max-width: fit-content;
+}
+
+button:active {
+  background-color: #016283;
 }
 
 input {
