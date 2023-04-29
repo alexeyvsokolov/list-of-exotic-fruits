@@ -1,19 +1,19 @@
-// элементы в DOM можно получить при помощи функции querySelector
-const fruitsList = document.querySelector('.fruits__list'); // список карточек
-const shuffleButton = document.querySelector('.shuffle__btn'); // кнопка перемешивания
-const filterButton = document.querySelector('.filter__btn'); // кнопка фильтрации
-const sortKindLabel = document.querySelector('.sort__kind'); // поле с названием сортировки
-const sortTimeLabel = document.querySelector('.sort__time'); // поле с временем сортировки
-const sortChangeButton = document.querySelector('.sort__change__btn'); // кнопка смены сортировки
-const sortActionButton = document.querySelector('.sort__action__btn'); // кнопка сортировки
-const kindInput = document.querySelector('.kind__input'); // поле с названием вида
-const colorInput = document.querySelector('.color__input'); // поле с названием цвета
-const weightInput = document.querySelector('.weight__input'); // поле с весом
-const addActionButton = document.querySelector('.add__action__btn'); // кнопка добавления
-const minWeightInput = document.querySelector('.minweight__input'); // поле с нижней границей weight
-const maxWeightInput = document.querySelector('.maxweight__input'); // поле с верхней границей weight
+// Элементы в DOM можно получить при помощи функции querySelector
+const fruitsList = document.querySelector('.fruits__list');              // список карточек
+const shuffleButton = document.querySelector('.shuffle__btn');           // кнопка перемешивания
+const minWeightInput = document.querySelector('.minweight__input');      // поле min weight
+const maxWeightInput = document.querySelector('.maxweight__input');      // поле max weight
+const filterButton = document.querySelector('.filter__btn');             // кнопка фильтрации
+const sortKindLabel = document.querySelector('.sort__kind');             // поле с названием сортировки
+const sortTimeLabel = document.querySelector('.sort__time');             // поле с временем сортировки
+const sortChangeButton = document.querySelector('.sort__change__btn');   // кнопка смены сортировки
+const sortActionButton = document.querySelector('.sort__action__btn');   // кнопка сортировки
+const kindInput = document.querySelector('.kind__input');                // поле с названием вида
+const colorInput = document.querySelector('.color__input');              // поле с названием цвета
+const weightInput = document.querySelector('.weight__input');            // поле с весом
+const addActionButton = document.querySelector('.add__action__btn');     // кнопка добавления
 
-// список фруктов в JSON формате
+// Список фруктов в JSON формате
 let fruitsJSON = `[
   {"kind": "Мангустин", "color": "фиолетовый", "weight": 13},
   {"kind": "Дуриан", "color": "зеленый", "weight": 35},
@@ -22,12 +22,12 @@ let fruitsJSON = `[
   {"kind": "Тамаринд", "color": "светло-коричневый", "weight": 22}
 ]`;
 
-// преобразование JSON в объект JavaScript
+// Преобразование JSON в объект JavaScript
 let fruits = JSON.parse(fruitsJSON);
 
 /*** ОТОБРАЖЕНИЕ ***/
 
-// отрисовка карточек
+// Отрисовка карточек
 const display = () => {
   fruitsList.innerHTML = '';
 
@@ -79,17 +79,17 @@ const display = () => {
   }
 };
 
-// первая отрисовка карточек
+// Первая отрисовка карточек
 display();
 
 /*** ПЕРЕМЕШИВАНИЕ ***/
 
-// генерация случайного числа в заданном диапазоне
+// Генерация случайного числа в заданном диапазоне
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// перемешивание массива
+// Перемешивание массива
 const shuffleFruits = () => {
   let result = [];
   let newFruits = [...fruits];
@@ -99,7 +99,7 @@ const shuffleFruits = () => {
     fruits.splice(randomFruits, 1);                          // вырезаем случайный элемент из fruits
   }
   fruits = result;
-  // проверка на совпадение при перемешивании
+  // Проверка на совпадение при перемешивании
   let notShuffled = fruits.every((el, index) => el === newFruits[index]);
   if (notShuffled) {
     alert("Не перемешано! Перемешайте ещё раз.");
@@ -113,7 +113,7 @@ shuffleButton.addEventListener('click', () => {
 
 /*** ФИЛЬТРАЦИЯ ***/
 
-// фильтрация массива
+// Фильтрация массива
 const filterFruits = () => {
   if (isNaN(maxWeightInput.value) || isNaN(minWeightInput.value)) {
     alert('Вес должен быть указан числом!')
@@ -122,9 +122,8 @@ const filterFruits = () => {
     return fruits;
   };
   return fruits.filter((item) => {
-    // TODO: допишите функцию
     if (parseInt(maxWeightInput.value) < parseInt(minWeightInput.value)) {
-      [maxWeightInput.value, minWeightInput.value] = [minWeightInput.value, maxWeightInput.value];   // Значения меняются местами если max меньше min
+      [maxWeightInput.value, minWeightInput.value] = [minWeightInput.value, maxWeightInput.value];   // значения меняются местами если max меньше min
     };
     return (item.weight >= parseInt(minWeightInput.value)) && (item.weight <= parseInt(maxWeightInput.value));
   });
@@ -137,8 +136,8 @@ filterButton.addEventListener('click', () => {
 
 /*** СОРТИРОВКА ***/
 
-let sortKind = 'bubbleSort'; // инициализация состояния вида сортировки
-let sortTime = '-'; // инициализация состояния времени сортировки
+let sortKind = 'bubbleSort';   // инициализация состояния вида сортировки
+let sortTime = '-';            // инициализация состояния времени сортировки
 
 const comparationColor = (a, b) => {
   const priorityColor = ['желтый', 'зеленый', 'розово-красный', 'фиолетовый', 'светло-коричневый'];
@@ -181,7 +180,7 @@ const sortAPI = {
     return [...this.quickSort(less, comparation), currentItem, ...this.quickSort(more, comparation)];
   },
 
-  // выполняет сортировку и производит замер времени
+  // Выполняет сортировку и производит замер времени
   startSort(sort, arr, comparation) {
     const start = new Date().getTime();
     sort(arr, comparation);
@@ -190,11 +189,11 @@ const sortAPI = {
   }
 };
 
-// инициализация полей
+// Инициализация полей
 sortKindLabel.textContent = sortKind;
 sortTimeLabel.textContent = sortTime;
 
-// переключать значение sortKind между 'bubbleSort' / 'quickSort'
+// Переключать значение sortKind между 'bubbleSort' / 'quickSort'
 sortChangeButton.addEventListener('click', () => {
   sortKindLabel.textContent === 'bubbleSort' ? sortKindLabel.textContent = 'quickSort' : sortKindLabel.textContent = 'bubbleSort';
 });
@@ -210,7 +209,7 @@ sortActionButton.addEventListener('click', () => {
 /*** ДОБАВИТЬ ФРУКТ ***/
 
 addActionButton.addEventListener('click', () => {
-  // создание и добавление нового фрукта в массив fruits
+  // Создание и добавление нового фрукта в массив fruits
   if (kindInput.value === "" || colorInput.value === "" || weightInput.value === "") {
     alert('Одно или несколько полей не заполнены!')
   } else {
